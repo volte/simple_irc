@@ -53,7 +53,7 @@ export class RxIRCClient {
       next: (message) => {
         const paramCount = message.params.length;
         const data = `${message.command} ${message.params.slice(0, paramCount - 1).join(" ")} ` +
-                     `:${message.params.slice(paramCount - 1)}\r\n`;
+                     `:${message.params.slice(paramCount - 1).join(" ")}\r\n`;
         this.socket.write$.next(data);
       }
     };
