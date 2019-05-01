@@ -132,6 +132,11 @@ export class RxIRCChannel {
     );
   }
 
+  /** Return a stream of the specified command. */
+  commandStream(command: string): Rx.Observable<IRCMessage> {
+    return this.messages$.pipe(filter(message => message.command === command));
+  }
+
   join() {
     this.client.send({ command: "JOIN", params: [this.channel] });
   }

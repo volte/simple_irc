@@ -16,11 +16,9 @@ client.messages$.subscribe(x => console.log(x));
 client.commandStream("001").subscribe(() => {
   let channel = new RxIRCChannel(client, "#VolteTest");
   channel.join();
-  channel.messages$.subscribe(message => {
-    if (message.command === "PRIVMSG") {
-      if (message.params[1] == "@date") {
-        channel.sendPrivMsg(`Current date is: ${new Date().toISOString()}`)
-      }
+  channel.commandStream("PRIVMSG").subscribe((message) => {
+    if (message.params[1] == "@date") {
+      channel.sendPrivMsg(`Current date is: ${new Date().toISOString()}`)
     }
   });
 });
